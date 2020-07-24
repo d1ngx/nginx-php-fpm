@@ -1,7 +1,5 @@
 FROM php:7.4.5-fpm-alpine3.11
 
-LABEL maintainer="Ric Harvey <ric@ngd.io>"
-
 ENV php_conf /usr/local/etc/php-fpm.conf
 ENV fpm_conf /usr/local/etc/php-fpm.d/www.conf
 ENV php_vars /usr/local/etc/php/conf.d/docker-vars.ini
@@ -182,6 +180,8 @@ RUN echo @testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repo
     sqlite-dev \
     libjpeg-turbo-dev \
     postgresql-dev \
+    imagemagick \
+    ffmpeg \
     tzdata && \
     cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     echo "Asia/Shanghai" > /etc/timezone && \
@@ -265,6 +265,7 @@ ADD errors/ /var/www/errors
 EXPOSE 443 80
 
 VOLUME /var/www/html
+VOLUME /usr/src
 
 WORKDIR "/var/www/html"
 CMD ["/start.sh"]
